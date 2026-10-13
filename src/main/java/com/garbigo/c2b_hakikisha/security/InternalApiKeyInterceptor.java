@@ -13,7 +13,7 @@ import com.garbigo.c2b_hakikisha.exception.AuthException;
 
 /**
  * Protects this service's own /internal/** endpoints with the shared X-API-Key
- * (the same INTERNAL_API_KEY used between the other Premisave services).
+ * (the same INTERNAL_API_KEY used between the other Garbigo services).
  * Deliberately separate from the Bearer token issued to Safaricom, which must never
  * grant access to bulk account data.
  */

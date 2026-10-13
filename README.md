@@ -25,11 +25,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa/stargazers"><img src="https://img.shields.io/github/stars/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa?style=for-the-badge&logo=github" alt="GitHub stars" /></a>
-  <a href="https://github.com/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa/network/members"><img src="https://img.shields.io/github/forks/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa?style=for-the-badge&logo=github" alt="GitHub forks" /></a>
-  <a href="https://github.com/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa/issues"><img src="https://img.shields.io/github/issues/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa?style=for-the-badge" alt="Open issues" /></a>
-  <a href="https://github.com/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa/commits"><img src="https://img.shields.io/github/last-commit/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa?style=for-the-badge" alt="Last commit" /></a>
-  <img src="https://img.shields.io/github/repo-size/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa?style=for-the-badge" alt="Repository size" />
+  <a href="https://github.com/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa/stargazers"><img src="https://img.shields.io/github/stars/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa?style=for-the-badge&logo=github" alt="GitHub stars" /></a>
+  <a href="https://github.com/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa/network/members"><img src="https://img.shields.io/github/forks/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa?style=for-the-badge&logo=github" alt="GitHub forks" /></a>
+  <a href="https://github.com/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa/issues"><img src="https://img.shields.io/github/issues/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa?style=for-the-badge" alt="Open issues" /></a>
+  <a href="https://github.com/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa/commits"><img src="https://img.shields.io/github/last-commit/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa?style=for-the-badge" alt="Last commit" /></a>
+  <img src="https://img.shields.io/github/repo-size/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa?style=for-the-badge" alt="Repository size" />
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge" alt="Pull requests welcome" />
   <img src="https://img.shields.io/badge/Made_in-Nairobi,_Kenya-000000?style=for-the-badge" alt="Made in Nairobi, Kenya" />
 </p>
@@ -83,7 +83,7 @@ This microservice is the **provider side** of that API. It:
 - keeps that copy fresh with a **scheduled sync** from your wallet service (on startup and every 5 minutes by default, configurable),
 - uses the customer's **M-Pesa phone number as the account number**, which is the natural identifier for M-Pesa-based services.
 
-It was built for the [Premisave](https://github.com/peacemakerbill?tab=repositories) platform, but the sync source is a single, isolated client class, so adapting it to another account store is straightforward.
+It was built for the Smart Garbage System, [Garbigo](https://github.com/peacemakerbill?tab=repositories), but the sync source is a single, isolated client class, so adapting it to another account store is straightforward.
 
 ## Features
 
@@ -205,8 +205,8 @@ All lookup errors have the shape `{ "requestId": "...", "errorMessage": "..." }`
 
 ```bash
 # 1. Clone
-git clone https://github.com/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa.git
-cd premisave-c2b-hakikisha-service-m-pesa
+git clone https://github.com/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa.git
+cd garbigo-c2b-hakikisha-service-m-pesa
 
 # 2. Start MongoDB (skip if you already have one)
 docker run -d --name c2b-mongo -p 27017:27017 mongo:8
@@ -219,7 +219,7 @@ Create a `.env` file next to `pom.xml`:
 
 ```properties
 SERVER_PORT=8090
-MONGODB_URI=mongodb://localhost:27017/premisave-c2b-hakikisha
+MONGODB_URI=mongodb://localhost:27017/garbigo-c2b-hakikisha
 
 # Wallet service that owns the accounts
 WALLET_SERVICE_URL=http://localhost:8084
@@ -248,7 +248,7 @@ Wallet sync complete: 42 accounts upserted, 0 stale removed, 1 page(s)
 mvn clean package
 
 # Run it (environment variables or a .env in the working directory)
-java -jar target/premisave-c2b-hakikisha-service-m-pesa-0.0.1-SNAPSHOT.jar
+java -jar target/garbigo-c2b-hakikisha-service-m-pesa-0.0.1-SNAPSHOT.jar
 ```
 
 **Notes**
@@ -264,7 +264,7 @@ Every setting lives in `src/main/resources/application.yml` and can be overridde
 | Environment variable | Default | Required | Description |
 |---|---|---|---|
 | `SERVER_PORT` | `8090` | no | HTTP port. |
-| `MONGODB_URI` | `mongodb://localhost:27017/premisave-c2b-hakikisha` | no | MongoDB connection string. |
+| `MONGODB_URI` | `mongodb://localhost:27017/garbigo-c2b-hakikisha` | no | MongoDB connection string. |
 | `WALLET_SERVICE_URL` | `http://localhost:8084` | no | Base URL of the wallet service. |
 | `INTERNAL_API_KEY` | none | **yes** | Sent as `X-API-Key` to the wallet service's `/internal/**` endpoints. Used only inside the service by the sync job; callers of this service never send it. |
 | `HAKIKISHA_SHORTCODE` | `600992` | no | Paybill shortcode. Requests with any other shortcode are rejected. |
@@ -583,13 +583,13 @@ Accounts live in the `wallet_accounts` collection (`WalletAccount`):
 ## Project structure
 
 ```
-premisave-c2b-hakikisha-service-m-pesa
+garbigo-c2b-hakikisha-service-m-pesa
 ├── pom.xml
 ├── .env                       # local secrets, git-ignored
 ├── .env.example
 └── src/main
-    ├── java/com/premisave/c2b_hakikisha
-    │   ├── PremisaveC2bHakikishaServiceMPesaApplication.java
+    ├── java/com/garbigo/c2b_hakikisha
+    │   ├── GarbigoC2bHakikshaServiceMPesaApplication.java
     │   ├── client/WalletServiceClient.java        # calls wallet-service /internal/accounts
     │   ├── config/                                # AppConfig, HakikishaProperties (validated)
     │   ├── controller/                            # TokenController, NameLookupController, InternalAccountsController
@@ -643,7 +643,7 @@ The next attempt happens after `HAKIKISHA_SYNC_INTERVAL_MINUTES`, or restart thi
 <details>
 <summary><b>Spring Tools / Eclipse shows <code>Cannot access session scope outside of a scoping block</code> on <code>pom.xml</code></b></summary>
 
-This is a known m2e (Eclipse Maven integration) issue reported with maven-jar-plugin 3.5.0. The project pins `maven-jar-plugin.version` to `3.4.2` as a workaround. Then use *Maven → Update Project* with *Force Update of Snapshots/Releases*, or update m2e through *Help → Check for Updates*.
+This is a known m2e (Eclipse Maven integration) issue reported with maven-jar-plugin 3.5.0. The project pins `maven-jar-plugin.version` to `3.4.2` as a workaround. Then use *Maven > Update Project* with *Force Update of Snapshots/Releases*, or update m2e through *Help > Check for Updates*.
 </details>
 
 ## Roadmap ideas
@@ -666,7 +666,7 @@ Issues and pull requests are welcome.
 2. Make your change and keep the code style consistent.
 3. Commit with a clear message and open a pull request describing what and why.
 
-Found a bug or have an M-Pesa integration question? [Open an issue](https://github.com/peacemakerbill/premisave-c2b-hakikisha-service-m-pesa/issues).
+Found a bug or have an M-Pesa integration question? [Open an issue](https://github.com/peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa/issues).
 
 ## Author
 
@@ -684,8 +684,7 @@ Found a bug or have an M-Pesa integration question? [Open an issue](https://gith
       <a href="https://github.com/peacemakerbill"><img src="https://img.shields.io/badge/GitHub-@peacemakerbill-181717?style=for-the-badge&logo=github" alt="GitHub @peacemakerbill" /></a>
       <a href="https://github.com/peacemakerbill?tab=followers"><img src="https://img.shields.io/github/followers/peacemakerbill?style=for-the-badge&logo=github&label=Followers" alt="GitHub followers" /></a>
       <br/><br/>
-      More from me: <a href="https://github.com/peacemakerbill/premisave_auth_service">premisave_auth_service</a> ·
-      <a href="https://github.com/peacemakerbill/premisave_flutter_frontend">premisave_flutter_frontend</a> ·
+      More from me: <a href="https://github.com/peacemakerbill?tab=repositories">all repositories</a>
       <a href="https://github.com/peacemakerbill?tab=repositories">all repositories</a>
     </td>
   </tr>
@@ -693,8 +692,8 @@ Found a bug or have an M-Pesa integration question? [Open an issue](https://gith
 
 ### Star history
 
-<a href="https://star-history.com/#peacemakerbill/premisave-c2b-hakikisha-service-m-pesa&Date">
-  <img src="https://api.star-history.com/svg?repos=peacemakerbill/premisave-c2b-hakikisha-service-m-pesa&type=Date" alt="Star history chart for premisave-c2b-hakikisha-service-m-pesa" width="600" />
+<a href="https://star-history.com/#peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa&Date">
+  <img src="https://api.star-history.com/svg?repos=peacemakerbill/garbigo-c2b-hakikisha-service-m-pesa&type=Date" alt="Star history chart for garbigo-c2b-hakikisha-service-m-pesa" width="600" />
 </a>
 
 ---
@@ -702,7 +701,7 @@ Found a bug or have an M-Pesa integration question? [Open an issue](https://gith
 <details>
 <summary>Search keywords</summary>
 
-M-Pesa C2B Hakikisha API · Safaricom C2B Hakikisha · M-Pesa account name lookup · paybill account validation · M-Pesa name validation · Safaricom Daraja · Daraja API Spring Boot · M-Pesa Spring Boot microservice · M-Pesa Java · Spring Boot 4 · Java 21 · MongoDB · REST API · OAuth2 client credentials · Basic Auth to Bearer token · fintech Kenya · mobile money API · paybill shortcode · Kenya developers · Nairobi · Premisave
+M-Pesa C2B Hakikisha API · Safaricom C2B Hakikisha · M-Pesa account name lookup · paybill account validation · M-Pesa name validation · Safaricom Daraja · Daraja API Spring Boot · M-Pesa Spring Boot microservice · M-Pesa Java · Spring Boot 4 · Java 21 · MongoDB · REST API · OAuth2 client credentials · Basic Auth to Bearer token · fintech Kenya · mobile money API · paybill shortcode · Kenya developers · Nairobi · Garbigo
 
 </details>
 
